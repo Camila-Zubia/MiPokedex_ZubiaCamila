@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyPokedex</string>
+    <string name="title_activity_pokedex_jc">PokedexJC</string>
 </resources>

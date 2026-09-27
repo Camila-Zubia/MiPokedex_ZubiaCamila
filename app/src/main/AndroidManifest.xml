@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PokedexJC"
+            android:exported="false"
+            android:label="@string/title_activity_pokedex_jc"
+            android:theme="@style/Theme.MyPokedex"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

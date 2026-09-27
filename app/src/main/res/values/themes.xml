@@ -6,6 +6,7 @@
     </style>
 
     <style name="Theme.MyPokedex" parent="Base.Theme.MyPokedex" />
+
     <style name="ShapeAppearance.App.TopRoundedCard" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSizeTopLeft">28dp</item>
         <item name="cornerSizeTopRight">28dp</item>
