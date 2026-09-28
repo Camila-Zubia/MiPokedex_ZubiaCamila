@@ -27,6 +27,12 @@
             android:label="@string/title_activity_pokedex_jc"
             android:theme="@style/Theme.MyPokedex"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".PokedexList"
+            android:exported="false"
+            android:label="@string/title_activity_pokedex_list"
+            android:theme="@style/Theme.MyPokedex"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
