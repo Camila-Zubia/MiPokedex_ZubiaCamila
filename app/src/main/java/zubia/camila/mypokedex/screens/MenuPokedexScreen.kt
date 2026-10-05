@@ -18,12 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import zubia.camila.mypokedex.components.FavoritesRow
 import zubia.camila.mypokedex.components.PokemonCell
+import zubia.camila.mypokedex.data.getFavoritePokemons
 import zubia.camila.mypokedex.domain.Pokemon
+import zubia.camila.mypokedex.navigation.PokemonDetail
 
 @Composable
 fun MenuPokedexScreen(
-    innerPadding: PaddingValues, favoriteList: List<Pokemon>, allPokemons: List<Pokemon>
-) {
+    innerPadding: PaddingValues, favoriteList: List<Pokemon>, allPokemons: List<Pokemon>, onNavigateToDetail: (id:Int)-> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -35,7 +36,7 @@ fun MenuPokedexScreen(
             Text("Favoritos", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
         }
         item {
-            FavoritesRow(favoriteList)
+            FavoritesRow(favoriteList, onNavigateToDetail)
         }
         item {
             Text("Todos", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))

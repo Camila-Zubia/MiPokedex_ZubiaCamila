@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import zubia.camila.mypokedex.R.drawable
+import zubia.camila.mypokedex.domain.Pokemon
 import zubia.camila.mypokedex.ui.theme.MyPokedexTheme
 
 class PokedexJC : ComponentActivity() {
@@ -49,8 +50,9 @@ class PokedexJC : ComponentActivity() {
         setContent {
             MyPokedexTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    PokemonDetailScreen(
-                        modifier = Modifier.padding(innerPadding)
+                    PokemonDetail(
+                        modifier = Modifier.padding(innerPadding),
+                        pokemon = Pokemon
                     )
                 }
             }
@@ -59,9 +61,7 @@ class PokedexJC : ComponentActivity() {
 }
 
 @Composable
-fun PokemonDetailScreen(
-    modifier: Modifier = Modifier
-) {
+fun PokemonDetail(modifier: Modifier = Modifier, pokemon: Pokemon) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -93,7 +93,7 @@ fun PokemonDetailScreen(
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = "Pikachu",
+                text = "${pokemon.name}",
                 color = colorResource(R.color.white),
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Black,
@@ -101,7 +101,7 @@ fun PokemonDetailScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "#205",
+                text = "${pokemon.num}",
                 color = colorResource(R.color.grey),
                 fontSize = 20.sp
             )
@@ -249,6 +249,6 @@ fun PokemonDetailScreen(
 @Composable
 fun GreetingPreview() {
     MyPokedexTheme {
-        PokemonDetailScreen()
+        PokemonDetail()
     }
 }

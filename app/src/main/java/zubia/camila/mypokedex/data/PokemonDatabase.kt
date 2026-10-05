@@ -174,3 +174,7 @@ val pokemonList = listOf(
         image = R.drawable.mimikyu
     )
 )
+
+fun getPokemonByNumber(id: Int): Pokemon{
+    return pokemonList.first { it.num == id }
+}
