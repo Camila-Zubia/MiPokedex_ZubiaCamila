@@ -15,6 +15,53 @@ val bulbasaur = Pokemon(
     image = R.drawable.bulbasaur
 )
 
+val favoritePokedexList = listOf(
+    Pokemon(
+        name = "Charmander",
+        num = 4,
+        type = "Fire",
+        description = "The flame on its tail shows the strength of its life force.",
+        height = 0.6f,
+        weight = 8.5f,
+        fav = true,
+        ability = "Blaze",
+        image = R.drawable.charmander
+    ),
+    Pokemon(
+        name = "Pikachu",
+        num = 25,
+        type = "Electric",
+        description = "When several of these Pokémon gather, their electricity could build and cause lightning storms.",
+        height = 0.4f,
+        weight = 6.0f,
+        fav = true,
+        ability = "Static",
+        image = R.drawable.pikachu
+    ),
+    Pokemon(
+        name = "Snorlax",
+        num = 143,
+        type = "Normal",
+        description = "Its stomach is said to be so strong that it can even eat moldy or rotten food.",
+        height = 2.1f,
+        weight = 460.0f,
+        fav = false,
+        ability = "Immunity",
+        image = R.drawable.snorlax
+    ),
+    Pokemon(
+        name = "Lucario",
+        num = 448,
+        type = "Fighting/Steel",
+        description = "By catching the aura emanating from others, it can read their thoughts and movements.",
+        height = 1.2f,
+        weight = 54.0f,
+        fav = true,
+        ability = "Steadfast",
+        image = R.drawable.lucario
+    )
+)
+
 val pokemonList = listOf(
     Pokemon(
         name = "Bulbasaur",
