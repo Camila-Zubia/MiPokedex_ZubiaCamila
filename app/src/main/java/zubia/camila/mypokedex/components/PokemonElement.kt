@@ -3,6 +3,7 @@ package zubia.camila.mypokedex.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,9 +47,9 @@ fun PokemonRow(pokemon: Pokemon){
 }
 
 @Composable
-fun FavoritePokemon(pokemon: Pokemon) {
+fun FavoritePokemon(pokemon: Pokemon, onNavigateToDetail: (id:Int)-> Unit) {
     val colors = getColorByType(pokemon.type)
-    Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 15.dp).clickable(true, onClick = {onNavigateToDetail(pokemon.num as Int)}), horizontalAlignment = Alignment.CenterHorizontally) {
         Box (modifier = Modifier.padding(15.dp)){
             Box(
                 modifier = Modifier

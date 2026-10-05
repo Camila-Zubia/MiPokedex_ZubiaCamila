@@ -27,7 +27,7 @@ fun MenuPokedex(pokemonList: List<Pokemon>){
 }
 
 @Composable
-fun PokemonGrid(pokemonList: List<Pokemon>){
+fun PokemonGrid(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Unit){
     LazyVerticalGrid(GridCells.Fixed(3),
         contentPadding = PaddingValues(5.dp, 20.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -39,7 +39,7 @@ fun PokemonGrid(pokemonList: List<Pokemon>){
     }
 }
 @Composable
-fun FavoritesRow(favoritesList: List<Pokemon>){
+fun FavoritesRow(favoritesList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Unit){
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {

@@ -135,4 +135,8 @@ fun getFavoritePokemons(): List<Pokemon>{
     return pokemonList.filter {
         it.fav
     }
+)
+
+fun getPokemonByNumber(id: Int): Pokemon{
+    return pokemonList.first { it.num == id }
 }
