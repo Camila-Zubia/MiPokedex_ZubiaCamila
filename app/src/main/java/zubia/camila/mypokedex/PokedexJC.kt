@@ -40,7 +40,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import zubia.camila.mypokedex.R.drawable
-import zubia.camila.mypokedex.domain.Pokemon
+import zubia.camila.mypokedex.model.data.bulbasaur
+import zubia.camila.mypokedex.model.domain.Pokemon
 import zubia.camila.mypokedex.ui.theme.MyPokedexTheme
 
 class PokedexJC : ComponentActivity() {
@@ -52,7 +53,7 @@ class PokedexJC : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     PokemonDetail(
                         modifier = Modifier.padding(innerPadding),
-                        pokemon = Pokemon
+                        pokemon = bulbasaur
                     )
                 }
             }
@@ -249,6 +250,5 @@ fun PokemonDetail(modifier: Modifier = Modifier, pokemon: Pokemon) {
 @Composable
 fun GreetingPreview() {
     MyPokedexTheme {
-        PokemonDetail()
     }
 }

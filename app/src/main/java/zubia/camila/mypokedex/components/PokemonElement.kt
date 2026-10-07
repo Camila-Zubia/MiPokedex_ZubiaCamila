@@ -23,8 +23,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import zubia.camila.mypokedex.data.bulbasaur
-import zubia.camila.mypokedex.domain.Pokemon
+import zubia.camila.mypokedex.model.data.bulbasaur
+import zubia.camila.mypokedex.model.domain.Pokemon
 import zubia.camila.mypokedex.ui.theme.OffWhitte
 import zubia.camila.mypokedex.utilities.getColorByType
 
@@ -85,8 +85,8 @@ fun FavoritePokemon(pokemon: Pokemon, onNavigateToDetail: (id:Int)-> Unit) {
 }
 
 @Composable
-fun PokemonCell(pokemon: Pokemon){
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+fun PokemonCell(pokemon: Pokemon, onNavigateToDetail: (id:Int)-> Unit){
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.clickable(true, onClick = {onNavigateToDetail(pokemon.num as Int)})) {
         Box (){
             Box(contentAlignment = Alignment.Center) {
                 Image(
@@ -111,5 +111,5 @@ fun PokemonCell(pokemon: Pokemon){
 fun PokemonElementPreview(){
     //PokemonRow(bulbasaur)
     //FavoritePokemon(bulbasaur)
-    PokemonCell(bulbasaur)
+    PokemonCell(bulbasaur, onNavigateToDetail = {id -> Unit})
 }

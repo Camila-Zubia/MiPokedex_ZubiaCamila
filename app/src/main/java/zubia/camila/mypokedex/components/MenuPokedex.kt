@@ -11,8 +11,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import zubia.camila.mypokedex.data.pokemonList
-import zubia.camila.mypokedex.domain.Pokemon
+import zubia.camila.mypokedex.model.data.pokemonList
+import zubia.camila.mypokedex.model.domain.Pokemon
 
 @Composable
 fun MenuPokedex(pokemonList: List<Pokemon>){
@@ -34,7 +34,7 @@ fun PokemonGrid(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Unit)
         horizontalArrangement = Arrangement.spacedBy(5.dp)) {
         items(pokemonList){
             pokemon ->
-            PokemonCell(pokemon)
+            PokemonCell(pokemon, onNavigateToDetail)
         }
     }
 }
@@ -44,7 +44,7 @@ fun FavoritesRow(favoritesList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Un
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(favoritesList) { pokemon ->
-            FavoritePokemon(pokemon)
+            FavoritePokemon(pokemon, onNavigateToDetail)
         }
     }
 }

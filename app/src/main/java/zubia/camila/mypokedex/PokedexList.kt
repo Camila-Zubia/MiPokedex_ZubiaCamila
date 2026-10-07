@@ -10,8 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import zubia.camila.mypokedex.data.getFavoritePokemons
-import zubia.camila.mypokedex.data.pokemonList
+import zubia.camila.mypokedex.navigation.MyApp
 import zubia.camila.mypokedex.screens.MenuPokedexScreen
 import zubia.camila.mypokedex.ui.theme.MyPokedexTheme
 
@@ -22,7 +21,7 @@ class PokedexList : ComponentActivity() {
         setContent {
             MyPokedexTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    MenuPokedexScreen(innerPadding, getFavoritePokemons(), pokemonList)
+                    MyApp(innerPadding)
                 }
             }
         }
@@ -34,6 +33,6 @@ class PokedexList : ComponentActivity() {
 @Composable
 fun GreetingPreview2() {
     MyPokedexTheme {
-        MenuPokedexScreen(PaddingValues(), getFavoritePokemons(), pokemonList)
+        MyApp(PaddingValues())
     }
 }
