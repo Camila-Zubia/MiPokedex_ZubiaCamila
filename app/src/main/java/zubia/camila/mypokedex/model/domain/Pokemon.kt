@@ -1,7 +1,7 @@
 package zubia.camila.mypokedex.model.domain
 
 data class Pokemon(val name : String,
-                   val num: Number,
+                   val num: Int,
                    val type: String,
                    val description: String,
                    val height: Float,

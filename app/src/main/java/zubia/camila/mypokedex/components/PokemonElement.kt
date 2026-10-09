@@ -29,8 +29,8 @@ import zubia.camila.mypokedex.ui.theme.OffWhitte
 import zubia.camila.mypokedex.utilities.getColorByType
 
 @Composable
-fun PokemonRow(pokemon: Pokemon){
-    Row(Modifier.fillMaxWidth().padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween){
+fun PokemonRow(pokemon: Pokemon, onNavigateToDetail: (id:Int)-> Unit){
+    Row(Modifier.fillMaxWidth().padding(10.dp).clickable(true, onClick = {onNavigateToDetail(pokemon.num as Int)}), horizontalArrangement = Arrangement.SpaceBetween){
         Image(painterResource(pokemon.image),
             contentDescription = "${pokemon.name} image",
             Modifier.width(80.dp).padding(10.dp))

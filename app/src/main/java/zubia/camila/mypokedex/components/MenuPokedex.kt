@@ -15,11 +15,11 @@ import zubia.camila.mypokedex.model.data.pokemonList
 import zubia.camila.mypokedex.model.domain.Pokemon
 
 @Composable
-fun MenuPokedex(pokemonList: List<Pokemon>){
+fun MenuPokedex(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Unit){
     LazyColumn() {
         items(pokemonList){
             pokemon ->
-            PokemonRow(pokemon)
+            PokemonRow(pokemon, onNavigateToDetail)
 
         }
     }
@@ -38,6 +38,7 @@ fun PokemonGrid(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Unit)
         }
     }
 }
+
 @Composable
 fun FavoritesRow(favoritesList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Unit){
     LazyRow(
@@ -52,5 +53,4 @@ fun FavoritesRow(favoritesList: List<Pokemon>, onNavigateToDetail: (id:Int)-> Un
 @Preview(showBackground = true)
 @Composable
 fun previewMenuPokedex(){
-    MenuPokedex(pokemonList)
 }
