@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -22,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -41,7 +44,8 @@ import zubia.camila.mypokedex.ui.theme.LightGreen
 
 @Composable
 fun MenuPokedexScreen(
-    innerPadding: PaddingValues, onNavigateToDetail: (id:Int)-> Unit) {
+    innerPadding: PaddingValues, onNavigateToDetail: (id:Int)-> Unit,
+    onNavigateToHunt: () -> Unit) {
     var grid by remember { mutableStateOf(false) }
     Column(modifier = Modifier
         .fillMaxSize()
@@ -71,7 +75,14 @@ fun MenuPokedexScreen(
                         modifier = Modifier.size(SwitchDefaults.IconSize))
                 }
             })}
-        Text("Favoritos", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+        Row(verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()){
+            Text("Favoritos", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            Button(onClick = onNavigateToHunt) {
+                Text("Catch New")
+            }
+        }
         FavoritesRow(getFavoritePokemons(), onNavigateToDetail)
         if (grid) {
             PokemonGrid(pokemonList, onNavigateToDetail)

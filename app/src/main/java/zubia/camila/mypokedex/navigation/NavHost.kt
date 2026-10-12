@@ -10,13 +10,16 @@ import zubia.camila.mypokedex.model.data.getPokemonByNumber
 import zubia.camila.mypokedex.model.data.pokemonList
 import zubia.camila.mypokedex.screens.MenuPokedexScreen
 import zubia.camila.mypokedex.screens.PokemonDetailScreen
+import zubia.camila.mypokedex.screens.PokemonHuntScreen
 
 @Composable
 fun MyApp(innerPadding: PaddingValues){
     val navController = rememberNavController()
     NavHost(navController, startDestination= PokemonList){
         composable<PokemonList> {
-            MenuPokedexScreen(innerPadding, onNavigateToDetail = {id-> navController.navigate(route= PokemonDetail(id))})
+            MenuPokedexScreen(innerPadding,
+                onNavigateToDetail = {id-> navController.navigate(route= PokemonDetail(id))},
+                onNavigateToHunt = {navController.navigate(route = PokemonHunt)})
         }
         composable<PokemonDetail> {backStackEntry ->
             val pokemonId = backStackEntry.toRoute<PokemonDetail>().id
@@ -36,6 +39,9 @@ fun MyApp(innerPadding: PaddingValues){
                         popUpTo<PokemonDetail> { inclusive = true }
                     }
                 })
+        }
+        composable<PokemonHunt> {
+            PokemonHuntScreen(innerPadding)
         }
     }
 }
