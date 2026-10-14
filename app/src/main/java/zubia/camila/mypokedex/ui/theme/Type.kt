@@ -35,6 +35,13 @@ val Typography = Typography(
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.Black,
+        fontSize = 20.sp,
+        lineHeight = 30.sp,
+        letterSpacing = 0.8.sp
     )
 
 )

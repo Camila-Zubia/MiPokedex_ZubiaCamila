@@ -41,7 +41,7 @@ fun MyApp(innerPadding: PaddingValues){
                 })
         }
         composable<PokemonHunt> {
-            PokemonHuntScreen(innerPadding)
+            PokemonHuntScreen(innerPadding, onNavigateToDetail = {id-> navController.navigate(route= PokemonDetail(id))})
         }
     }
 }
