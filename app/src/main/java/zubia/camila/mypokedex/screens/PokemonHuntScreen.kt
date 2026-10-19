@@ -1,7 +1,5 @@
 package zubia.camila.mypokedex.screens
 
-import android.widget.Space
-import androidx.appcompat.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import zubia.camila.mypokedex.components.PokemonRow
-import zubia.camila.mypokedex.model.domain.Pokemon
 import zubia.camila.mypokedex.ui.theme.Green
 import zubia.camila.mypokedex.ui.theme.Psych
 import zubia.camila.mypokedex.ui.theme.Purple40
@@ -46,7 +43,7 @@ fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel =
                 Text("Capturar a ${pokemon.name}")
             }
         }
-        if(viewModel.gonePOkemon){
+        if(viewModel.gonePokemon){
             Text("El pokemon se ha escapado :'(", style= MaterialTheme.typography.labelLarge, color= Color.Magenta)
         }
         if (viewModel.captured){
@@ -55,7 +52,7 @@ fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel =
         Spacer(Modifier.size(20.dp))
         Text("Pokemones capturados", style= MaterialTheme.typography.titleLarge, color= Psych)
         LazyColumn() {
-            items(viewModel.capturedPOkemon){
+            items(viewModel.capturedPokemon){
                 pokemon ->
                 PokemonRow(pokemon, onNavigateToDetail)
             }

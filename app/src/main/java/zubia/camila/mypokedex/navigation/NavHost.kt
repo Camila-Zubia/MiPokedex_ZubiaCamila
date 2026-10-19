@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import zubia.camila.mypokedex.model.data.getPokemonByNumber
 import zubia.camila.mypokedex.model.data.pokemonList
+import zubia.camila.mypokedex.screens.LoginScreen
 import zubia.camila.mypokedex.screens.MenuPokedexScreen
 import zubia.camila.mypokedex.screens.PokemonDetailScreen
 import zubia.camila.mypokedex.screens.PokemonHuntScreen
@@ -15,7 +16,13 @@ import zubia.camila.mypokedex.screens.PokemonHuntScreen
 @Composable
 fun MyApp(innerPadding: PaddingValues){
     val navController = rememberNavController()
+    val navigateToMenu= {
+        navController.navigate(PokemonList)
+    }
     NavHost(navController, startDestination= PokemonList){
+        composable<Login> {
+            LoginScreen(innerPadding, onNavigateToMenu= {navigateToMenu})
+        }
         composable<PokemonList> {
             MenuPokedexScreen(innerPadding,
                 onNavigateToDetail = {id-> navController.navigate(route= PokemonDetail(id))},

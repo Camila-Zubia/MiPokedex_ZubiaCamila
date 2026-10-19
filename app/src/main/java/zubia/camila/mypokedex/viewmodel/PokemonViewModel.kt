@@ -10,10 +10,10 @@ import zubia.camila.mypokedex.model.domain.Pokemon
 class PokemonViewModel : ViewModel(){
     var wildPokemon by mutableStateOf<Pokemon?>(null)
         private set
-    var capturedPOkemon by mutableStateOf(listOf<Pokemon>())
+    var capturedPokemon by mutableStateOf(listOf<Pokemon>())
         private set
 
-    var gonePOkemon by mutableStateOf(false)
+    var gonePokemon by mutableStateOf(false)
         private set
 
     var captured by mutableStateOf(false)
@@ -22,19 +22,19 @@ class PokemonViewModel : ViewModel(){
     fun searchPokemon(){
         wildPokemon = pokemonList.random()
         captured = false
-        gonePOkemon = false
+        gonePokemon = false
     }
 
     fun capturePokemon(){
         wildPokemon?.let {
             var isCaptured = (1..2).random()
             if(isCaptured == 1){
-                capturedPOkemon = capturedPOkemon + it
-                gonePOkemon = false
+                capturedPokemon = capturedPokemon + it
+                gonePokemon = false
                 wildPokemon = null
                 captured = true
             }else{
-                gonePOkemon = true
+                gonePokemon = true
                 wildPokemon = null
                 captured = false
             }
