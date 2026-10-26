@@ -19,6 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,29 +30,42 @@ import zubia.camila.mypokedex.viewmodel.UserViewModel
 
 @SuppressLint("RememberReturnType")
 @Composable
-fun LoginScreen(innerPadding: PaddingValues, viewModel: UserViewModel = viewModel(), onNavigateToMenu: () -> Unit,
-                setSuccesfulLogin: (user: String, mail:String) -> Unit){
+fun LoginScreen(innerPadding: PaddingValues, viewModel: UserViewModel = viewModel(), onNavigateToMenu: () -> Unit){
     var user by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    Column(Modifier.padding(15.dp).fillMaxWidth()) {
-        Text("Usuario:", style= MaterialTheme.typography.labelLarge)
-        TextField(value= user, label= {Text("Tu usuario")}, onValueChange = { it -> user= it}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text), modifier =  Modifier.fillMaxWidth())
-        Spacer(Modifier.size(30.dp))
-        Text("Contraseña:", style= MaterialTheme.typography.labelLarge)
-        TextField(value= password, label= {Text("Tu contraseña")}, onValueChange = {it -> password= it}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), modifier =  Modifier.fillMaxWidth())
-        Spacer(Modifier.size(30.dp))
-        Column(horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Button(onClick = {}) {
-                Text("Iniciar Sesión")
+    if (viewModel.isLoggedIn()){
+        onNavigateToMenu()
+    }else{
+        Column(Modifier
+            .padding(15.dp)
+            .fillMaxWidth()) {
+            Text("Usuario:", style= MaterialTheme.typography.labelLarge)
+            TextField(value= user, label= {Text("Tu usuario")}, onValueChange = { it -> user= it}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text), modifier =  Modifier.fillMaxWidth())
+            Spacer(Modifier.size(30.dp))
+            Text("Contraseña:", style= MaterialTheme.typography.labelLarge)
+            TextField(value= password, label= {Text("Tu contraseña")}, onValueChange = {it -> password= it}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), modifier =  Modifier.fillMaxWidth())
+            Spacer(Modifier.size(30.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(onClick = {viewModel.login(user, password)
+                    if (!viewModel.loginError){
+                        onNavigateToMenu
+                    }}) {
+                    Text("Iniciar Sesión")
+                }
+                Spacer(Modifier.size(40.dp))
+                if (viewModel.loginError){
+                    Text(viewModel.errorDescription, color= Color.Red, fontStyle = FontStyle.Italic)
+                }
             }
-        }
 
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen(){
+    LoginScreen(PaddingValues(), viewModel(),{ })
 }
