@@ -6,8 +6,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import zubia.camila.mypokedex.model.data.Users
+import zubia.camila.mypokedex.model.domain.User
 
 class UserViewModel(val users: Users): ViewModel(){
+    var currentUser by mutableStateOf<User?>(null)
+    init{
+        currentUser = users.getCurrentUser()
+    }
     var loginError by mutableStateOf<Boolean>(false)
     var errorDescription by mutableStateOf<String>("")
 

@@ -13,7 +13,7 @@ class Users(val context: Context) {
         User("taylor@mail.com", "1989", "TaylorSwift")
     )
 
-    fun getUserByMail(mail: String): User{
+    fun getUserByMail(mail: String?): User{
         return validUsers.first { it.email.equals(mail, ignoreCase = true) }
     }
 
@@ -32,6 +32,11 @@ class Users(val context: Context) {
         editor.putString(USER, user)
         editor.putString(USERNAME, name)
         editor.apply()
+    }
+
+    fun getCurrentUser(): User {
+        val user = shared.getString( USER, null )
+        return getUserByMail(user)
     }
 
     fun logout(){

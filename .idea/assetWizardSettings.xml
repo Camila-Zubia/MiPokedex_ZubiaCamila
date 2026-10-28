@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../../Sdk/icons/material/materialiconsoutlined/grid_view/outline_grid_view_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../../proyectosAndroid/icons/material/materialsymbolsoutlined/arrow_back/outline_arrow_back_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,7 +34,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="404040" />
-                            <entry key="outputName" value="ic_grid" />
+                            <entry key="outputName" value="ic_logout" />
                             <entry key="sourceFile" value="C:\Users\Usuario\AndroidStudioProjects\MyPokedex" />
                           </map>
                         </option>
