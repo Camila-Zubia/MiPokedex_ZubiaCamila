@@ -31,4 +31,8 @@ class UserViewModel(val users: Users): ViewModel(){
     fun isLoggedIn(): Boolean{
         return users.isLoggedIn()
     }
+
+    fun logout(){
+        return users.logout()
+    }
 }

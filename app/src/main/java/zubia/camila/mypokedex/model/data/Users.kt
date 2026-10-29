@@ -13,14 +13,14 @@ class Users(val context: Context) {
         User("taylor@mail.com", "1989", "TaylorSwift")
     )
 
-    fun getUserByMail(mail: String?): User{
-        return validUsers.first { it.email.equals(mail, ignoreCase = true) }
+    fun getUserByMail(mail: String?): User?{
+        return validUsers.firstOrNull { it.email.equals(mail, ignoreCase = true) }
     }
 
     fun loginService(user: String, pass: String): User? {
         val user = getUserByMail(user)
         user.let{
-            if(user.password == pass)
+            if(user?.password == pass)
                 return user
         }
         return null
@@ -34,7 +34,7 @@ class Users(val context: Context) {
         editor.apply()
     }
 
-    fun getCurrentUser(): User {
+    fun getCurrentUser(): User? {
         val user = shared.getString( USER, null )
         return getUserByMail(user)
     }
@@ -47,8 +47,6 @@ class Users(val context: Context) {
     }
 
     fun isLoggedIn(): Boolean{
-        val user = shared.getString(USER, null)
-        val name = shared.getString(USERNAME, null)
-        return !(user == null && name == null)
+        return getCurrentUser() != null
     }
 }

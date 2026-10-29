@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -42,7 +43,7 @@ fun LoginScreen(innerPadding: PaddingValues, viewModel: UserViewModel = viewMode
     }else{
         Column(Modifier
             .padding(15.dp)
-            .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
+            .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Text("Usuario:", style= MaterialTheme.typography.labelLarge)
             TextField(value= user, label= {Text("Tu usuario")}, onValueChange = { it -> user= it}, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text), modifier =  Modifier.fillMaxWidth())
             Spacer(Modifier.size(30.dp))
