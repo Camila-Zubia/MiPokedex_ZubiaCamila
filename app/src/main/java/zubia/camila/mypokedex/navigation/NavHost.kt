@@ -26,19 +26,17 @@ import kotlin.collections.any
 
 @Composable
 fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel){
-    val topView = setOf(Login)
     val navController = rememberNavController()
     val navigateToMenu= {
         navController.navigate(PokemonList)
     }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val show = topView.any { route ->
-        currentDestination?.hasRoute(route::class) == false}
+    val show = currentDestination?.hasRoute(Login::class) == false
     Scaffold(
         topBar = {
             if (show) {
-                TopNavBar(navController)
+                TopNavBar(navController) { usersViewModel.logout() }
             }
         }
     ){innerPadding ->
@@ -75,10 +73,6 @@ fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel){
             }
             composable<Perfil>{
                 ProfileScreen(innerPadding, usersViewModel)
-            }
-            composable<Logout>{
-                usersViewModel.logout()
-                LoginScreen(innerPadding, onNavigateToMenu= navigateToMenu, viewModel = usersViewModel)
             }
         }
     }

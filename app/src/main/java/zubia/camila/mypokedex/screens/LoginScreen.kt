@@ -18,6 +18,7 @@ import androidx.compose.material3.SecureTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,10 +38,11 @@ import zubia.camila.mypokedex.viewmodel.UserViewModel
 fun LoginScreen(innerPadding: PaddingValues, viewModel: UserViewModel = viewModel(), onNavigateToMenu: () -> Unit){
     var user by remember { mutableStateOf("") }
     var password = remember { TextFieldState() }
-    if (viewModel.isLoggedIn()){
-        onNavigateToMenu()
-    }else{
-        Column(Modifier
+    LaunchedEffect(viewModel.currentUser) {
+        if (viewModel.currentUser != null) onNavigateToMenu()
+    }
+    Column(Modifier
+            .padding(innerPadding)
             .padding(15.dp)
             .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Text("Usuario:", style= MaterialTheme.typography.labelLarge)
@@ -53,10 +54,7 @@ fun LoginScreen(innerPadding: PaddingValues, viewModel: UserViewModel = viewMode
             Column(horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(onClick = {viewModel.login(user, password.text as String)
-                    if (!viewModel.loginError){
-                        onNavigateToMenu
-                    }}) {
+                Button(onClick = { viewModel.login(user.trim(), password.text.toString()) }) {
                     Text("Iniciar Sesión")
                 }
                 Spacer(Modifier.size(40.dp))
@@ -66,7 +64,6 @@ fun LoginScreen(innerPadding: PaddingValues, viewModel: UserViewModel = viewMode
             }
 
         }
-    }
 }
 
 @Preview(showBackground = true)

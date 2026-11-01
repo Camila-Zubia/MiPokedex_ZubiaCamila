@@ -10,17 +10,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import zubia.camila.mypokedex.R
 import zubia.camila.mypokedex.navigation.Login
-import zubia.camila.mypokedex.navigation.Logout
 import zubia.camila.mypokedex.navigation.Perfil
 import zubia.camila.mypokedex.ui.theme.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopNavBar(navController: NavController){
+fun TopNavBar(navController: NavController, onLogout: () -> Unit){
     TopAppBar(title = {
         Text("Pokedex", style = Typography.labelLarge)
     }, navigationIcon = {
-        IconButton(onClick = {navController.navigate(Logout)}){
+        IconButton(onClick = {
+            onLogout()
+            navController.navigate(Login) {
+                popUpTo(navController.graph.id) { inclusive = true }
+                launchSingleTop = true
+            }
+        }){
             Icon(painter = painterResource(R.drawable.ic_logout), contentDescription = "logout")
         }
     }, actions = {
