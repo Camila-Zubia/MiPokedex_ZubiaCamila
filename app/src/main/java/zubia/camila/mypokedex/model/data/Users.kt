@@ -8,9 +8,9 @@ import zubia.camila.mypokedex.model.preferences.USERNAME
 
 class Users(val context: Context) {
     val validUsers = listOf<User>(
-        User("alma@mail.com", "123456", "Alma Chavez"),
-        User("camila.zubia@mail.com", "150404", "Camila Zubia"),
-        User("taylor@mail.com", "1989", "TaylorSwift")
+        User("alma@mail.com", "123456", "Alma Chavez", pokemonList[1]),
+        User("camila.zubia@mail.com", "150404", "Camila Zubia", pokemonList[3]),
+        User("taylor@mail.com", "1989", "TaylorSwift", pokemonList[5])
     )
 
     fun getUserByMail(mail: String?): User{

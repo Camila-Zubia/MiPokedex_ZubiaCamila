@@ -1,3 +1,4 @@
 package zubia.camila.mypokedex.model.domain
 
-data class User(val email: String, val password: String, val name: String)
+
+data class User(val email: String, val password: String, val name: String, val pokemonCompanion: Pokemon)
