@@ -41,12 +41,13 @@ import zubia.camila.mypokedex.ui.theme.Blue
 import zubia.camila.mypokedex.ui.theme.Green
 import zubia.camila.mypokedex.ui.theme.LightBlue
 import zubia.camila.mypokedex.ui.theme.LightGreen
+import zubia.camila.mypokedex.viewmodel.UserViewModel
 
 @Composable
 fun MenuPokedexScreen(
     innerPadding: PaddingValues, onNavigateToDetail: (id:Int)-> Unit,
-    onNavigateToHunt: () -> Unit) {
-    var grid by remember { mutableStateOf(false) }
+    onNavigateToHunt: () -> Unit, userViewModel: UserViewModel) {
+    var grid= userViewModel.gridOption
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(innerPadding)

@@ -14,22 +14,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import zubia.camila.mypokedex.model.data.CompanionPreferences
 import zubia.camila.mypokedex.model.data.Users
 import zubia.camila.mypokedex.navigation.MyApp
 import zubia.camila.mypokedex.screens.LoginScreen
 import zubia.camila.mypokedex.ui.theme.MyPokedexTheme
+import zubia.camila.mypokedex.viewmodel.PokemonDetailViewModel
 import zubia.camila.mypokedex.viewmodel.UserViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val users = Users(this)
-        val userViewModel = UserViewModel(users)
+        val companion = CompanionPreferences(this)
+        val userViewModel = UserViewModel(users, companion)
+        val pokemonDetailVM = PokemonDetailViewModel(companion)
         enableEdgeToEdge()
         setContent {
             MyPokedexTheme{
                 Scaffold(modifier = Modifier.fillMaxWidth(), contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)) { innerPadding ->
-                    MyApp(innerPadding, userViewModel)
+                    MyApp(innerPadding, userViewModel, pokemonDetailVM)
                 }
             }
         }

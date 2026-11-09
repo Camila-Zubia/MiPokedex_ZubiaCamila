@@ -21,6 +21,7 @@ class UserViewModel(val users: Users, private val companionDataStore: CompanionP
     init{
         currentUser = users.getCurrentUser()
     }
+    var gridOption by mutableStateOf<Boolean>(false)
     var loginError by mutableStateOf<Boolean>(false)
     var errorDescription by mutableStateOf<String>("")
 

@@ -1,11 +1,13 @@
 package zubia.camila.mypokedex.model.preferences
 
+
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import zubia.camila.mypokedex.R
 import zubia.camila.mypokedex.model.domain.Pokemon
 import java.io.InputStream
 import java.io.OutputStream
@@ -20,7 +22,7 @@ object PokemonSerializer: Serializer<Pokemon> {
         weight= 0f,
         fav = false,
         ability = "",
-        image = -1
+        image = R.drawable.wtp
     )
     override suspend fun readFrom(input: InputStream): Pokemon{
 
