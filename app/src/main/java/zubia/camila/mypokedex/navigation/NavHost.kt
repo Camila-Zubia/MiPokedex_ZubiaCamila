@@ -21,11 +21,12 @@ import zubia.camila.mypokedex.screens.MenuPokedexScreen
 import zubia.camila.mypokedex.screens.PokemonDetailScreen
 import zubia.camila.mypokedex.screens.PokemonHuntScreen
 import zubia.camila.mypokedex.screens.ProfileScreen
+import zubia.camila.mypokedex.viewmodel.PokemonDetailViewModel
 import zubia.camila.mypokedex.viewmodel.UserViewModel
 import kotlin.collections.any
 
 @Composable
-fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel){
+fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel, pokemonDetailViewModel: PokemonDetailViewModel){
     val topView = Login
     val navController = rememberNavController()
     val navigateToMenu= {
