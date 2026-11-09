@@ -35,15 +35,21 @@ class UserViewModel(val users: Users, private val companionDataStore: CompanionP
         val user = users.loginService(user, password)
         if (user == null){
             loginError = true
-            errorDescription = "Ususario o contraseña incorrectos"
+            errorDescription = "Usuario o contraseña incorrectos"
         }else{
            loginError = false
            errorDescription = ""
             users.saveUser(user.email, user.name)
+            currentUser = user
         }
     }
 
     fun isLoggedIn(): Boolean{
         return users.isLoggedIn()
+    }
+
+    fun logout(){
+        users.logout()
+        currentUser = null
     }
 }
