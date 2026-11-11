@@ -46,6 +46,16 @@ class Users(val context: Context) {
         editor.apply()
     }
 
+    fun getGridOption(user: String?): Boolean =
+        user?.let { shared.getBoolean(gridOptionKey(it), false) } ?: false
+
+    fun saveGridOption(user: String?, isGrid: Boolean) {
+        user ?: return
+        shared.edit().putBoolean(gridOptionKey(user), isGrid).apply()
+    }
+
+    private fun gridOptionKey(user: String) = "gridOption_${user.lowercase()}"
+
     fun isLoggedIn(): Boolean{
         return getCurrentUser() != null
     }

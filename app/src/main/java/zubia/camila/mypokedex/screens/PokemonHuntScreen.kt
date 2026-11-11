@@ -28,8 +28,7 @@ import zubia.camila.mypokedex.viewmodel.PokemonViewModel
 
 @Composable
 fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel = viewModel(), onNavigateToDetail: (id:Int)-> Unit){
-    Spacer(Modifier.size(30.dp))
-    Column(Modifier.fillMaxWidth().padding(innerPadding), horizontalAlignment = Alignment.CenterHorizontally){
+    Column(Modifier.fillMaxWidth().padding(innerPadding).padding(top = 30.dp), horizontalAlignment = Alignment.CenterHorizontally){
         Button(onClick = {viewModel.searchPokemon()}){
             Text("Buscar pokemon en la hierva")
         }

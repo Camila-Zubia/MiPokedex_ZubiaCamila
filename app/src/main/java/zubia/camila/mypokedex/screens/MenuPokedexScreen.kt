@@ -21,9 +21,6 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,14 +44,14 @@ import zubia.camila.mypokedex.viewmodel.UserViewModel
 fun MenuPokedexScreen(
     innerPadding: PaddingValues, onNavigateToDetail: (id:Int)-> Unit,
     onNavigateToHunt: () -> Unit, userViewModel: UserViewModel) {
-    var grid= userViewModel.gridOption
+    val grid = userViewModel.gridOption
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(innerPadding)
         .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Row() {
-            Switch(checked = grid, onCheckedChange = {grid = it}, colors = SwitchDefaults.colors(
+            Switch(checked = grid, onCheckedChange = userViewModel::updateGridOption, colors = SwitchDefaults.colors(
                 checkedThumbColor = Green,
                 checkedTrackColor = LightGreen,
                 uncheckedThumbColor = Blue,

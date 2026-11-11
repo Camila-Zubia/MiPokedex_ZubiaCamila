@@ -137,11 +137,6 @@ fun getFavoritePokemons(): List<Pokemon> {
     }
 }
 
-@Composable
-fun getPokemonByNumber(id: Int): Pokemon {
-    return pokemonList.first{ it.num == id }
-}
-
 fun getPokemonIndex(id: Int): Int{
     return pokemonList.indexOfFirst { it.num == id }
 }

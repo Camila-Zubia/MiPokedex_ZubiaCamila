@@ -21,7 +21,8 @@ class UserViewModel(val users: Users, private val companionDataStore: CompanionP
     init{
         currentUser = users.getCurrentUser()
     }
-    var gridOption by mutableStateOf<Boolean>(false)
+    var gridOption by mutableStateOf(users.getGridOption(currentUser?.email))
+        private set
     var loginError by mutableStateOf<Boolean>(false)
     var errorDescription by mutableStateOf<String>("")
 
@@ -41,6 +42,7 @@ class UserViewModel(val users: Users, private val companionDataStore: CompanionP
            errorDescription = ""
             users.saveUser(user.email, user.name)
             currentUser = user
+            gridOption = users.getGridOption(user.email)
         }
     }
 
@@ -51,5 +53,10 @@ class UserViewModel(val users: Users, private val companionDataStore: CompanionP
     fun logout(){
         users.logout()
         currentUser = null
+    }
+
+    fun updateGridOption(isGrid: Boolean) {
+        gridOption = isGrid
+        users.saveGridOption(currentUser?.email, isGrid)
     }
 }

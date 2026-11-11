@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -42,7 +43,7 @@ import zubia.camila.mypokedex.utilities.getColorByType
 import kotlin.collections.lastIndex
 
 @Composable
-fun PokemonDetail(pokemon: Pokemon) {
+fun PokemonDetail(pokemon: Pokemon, isCompanion: Boolean, onSeleccionado: () -> Unit) {
     val colors = getColorByType(pokemon.type)
     Box(modifier = Modifier
         .fillMaxSize()
@@ -112,7 +113,19 @@ fun PokemonDetail(pokemon: Pokemon) {
                         .padding(horizontal = 16.dp, vertical = 6.dp)
                 )
 
-                Column(modifier = Modifier.fillMaxWidth().padding(top = 64.dp, start = 16.dp, end = 16.dp)) {
+                Column(Modifier.fillMaxWidth().padding(top = 55.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    if (isCompanion) {
+                        Surface(color = colors.first, shape = RoundedCornerShape(16.dp)) {
+                            Text("Es tu compañero", color = colors.second, modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+                        }
+                    } else {
+                        Button(onClick= onSeleccionado){
+                            Text("Seleccionar Compañero")
+                        }
+                    }
+                }
+
+                Column(modifier = Modifier.fillMaxWidth().padding(top = 110.dp, start = 16.dp, end = 16.dp)) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -236,5 +249,5 @@ fun ListDetail(
 @Preview
 @Composable
 fun PokemonDetailPreview() {
-    PokemonDetail(bulbasaur)
+    PokemonDetail(bulbasaur, false, {})
 }

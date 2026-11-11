@@ -14,7 +14,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import zubia.camila.mypokedex.components.TopNavBar
 import zubia.camila.mypokedex.model.data.Users
-import zubia.camila.mypokedex.model.data.getPokemonByNumber
 import zubia.camila.mypokedex.model.data.pokemonList
 import zubia.camila.mypokedex.screens.LoginScreen
 import zubia.camila.mypokedex.screens.MenuPokedexScreen
@@ -53,7 +52,7 @@ fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel, pokemonDet
             }
             composable<PokemonDetail> {backStackEntry ->
                 val pokemonId = backStackEntry.toRoute<PokemonDetail>().id
-                val pokemon = getPokemonByNumber(pokemonId)
+                val pokemon = pokemonDetailViewModel.getPokemonByNumber(pokemonId)
                 val actualPokemon = pokemonList.indexOfFirst { it.num == pokemonId }
                 val prevIndex = if (actualPokemon > 0) actualPokemon - 1 else pokemonList.lastIndex
                 val nextIndex = if (actualPokemon < pokemonList.lastIndex) actualPokemon + 1 else 0
