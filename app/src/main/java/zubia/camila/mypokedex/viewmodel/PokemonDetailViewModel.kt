@@ -22,7 +22,7 @@ class PokemonDetailViewModel(private val companionDataStore: CompanionPreference
 
     fun saveCompanion(pokemon: Pokemon){
         viewModelScope.launch {
-            companionDataStore.savwCompanion(pokemon)
+            companionDataStore.saveCompanion(pokemon)
         }
     }
 }

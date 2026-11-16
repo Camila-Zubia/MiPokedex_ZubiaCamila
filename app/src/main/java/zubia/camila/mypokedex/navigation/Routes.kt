@@ -20,3 +20,6 @@ object Perfil
 
 @Serializable
 object Logout
+
+@Serializable
+object AddPokemon

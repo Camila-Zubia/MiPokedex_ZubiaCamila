@@ -19,7 +19,7 @@ val Context.dataStore: DataStore<Pokemon> by dataStore(
 )
 
 class CompanionPreferences(private val context: Context) {
-    suspend fun savwCompanion(companion: Pokemon){
+    suspend fun saveCompanion(companion: Pokemon){
         context.dataStore.updateData {
             pokemon -> companion
         }

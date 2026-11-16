@@ -15,17 +15,20 @@ import androidx.navigation.toRoute
 import zubia.camila.mypokedex.components.TopNavBar
 import zubia.camila.mypokedex.model.data.Users
 import zubia.camila.mypokedex.model.data.pokemonList
+import zubia.camila.mypokedex.screens.AddPokemonScreen
 import zubia.camila.mypokedex.screens.LoginScreen
 import zubia.camila.mypokedex.screens.MenuPokedexScreen
 import zubia.camila.mypokedex.screens.PokemonDetailScreen
 import zubia.camila.mypokedex.screens.PokemonHuntScreen
 import zubia.camila.mypokedex.screens.ProfileScreen
+import zubia.camila.mypokedex.viewmodel.AddPokemonViewModel
 import zubia.camila.mypokedex.viewmodel.PokemonDetailViewModel
 import zubia.camila.mypokedex.viewmodel.UserViewModel
 import kotlin.collections.any
 
 @Composable
-fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel, pokemonDetailViewModel: PokemonDetailViewModel){
+fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel, addPokemonVM: AddPokemonViewModel,
+          pokemonDetailViewModel: PokemonDetailViewModel){
     val topView = Login
     val navController = rememberNavController()
     val navigateToMenu= {
@@ -74,6 +77,9 @@ fun MyApp(innerPadding: PaddingValues, usersViewModel: UserViewModel, pokemonDet
             }
             composable<Perfil>{
                 ProfileScreen(innerPadding, usersViewModel)
+            }
+            composable<AddPokemon>{
+                AddPokemonScreen(innerPadding, onNavigateToDetail = {id-> navController.navigate(route= PokemonDetail(id))}, addPokemonVM = addPokemonVM)
             }
         }
     }

@@ -4,6 +4,7 @@ import android.provider.BaseColumns
 
 object Contract{
     object Pokemons: BaseColumns{
+        const val COLUMN_ID= "id"
         const val TABLE_NAME = "pokemons"
         const val COLUMN_NAME_NUMBER = "number"
         const val COLUMN_NAME_NAME = "name"

@@ -8,12 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -29,98 +33,159 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import zubia.camila.mypokedex.R
+import zubia.camila.mypokedex.components.PokemonRow
 import zubia.camila.mypokedex.model.domain.pokemonTypes
 import zubia.camila.mypokedex.ui.theme.Typography
+import zubia.camila.mypokedex.viewmodel.AddPokemonViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddPokemonScreen(innerPadding: PaddingValues){
-    var number= remember { TextFieldState() }
-    var name = remember { TextFieldState()}
-    var type  = remember { TextFieldState()}
-    val textFieldState = rememberTextFieldState(pokemonTypes[0])
+fun AddPokemonScreen(
+    innerPadding: PaddingValues,
+    addPokemonVM: AddPokemonViewModel,
+    onNavigateToDetail: (id: Int) -> Unit
+) {
+    val number = rememberTextFieldState()
+    val name = rememberTextFieldState()
+    val type = rememberTextFieldState(pokemonTypes.firstOrNull() ?: "")
     var openType by remember { mutableStateOf(false) }
-    var description = remember { TextFieldState() }
-    var height = remember { TextFieldState() }
-    var weight = remember { TextFieldState() }
-    var fav = remember { TextFieldState() }
-    var ability = remember { TextFieldState() }
-    var image = remember { TextFieldState() }
+    val description = rememberTextFieldState()
+    val height = rememberTextFieldState()
+    val weight = rememberTextFieldState()
+    var fav by remember { mutableStateOf(false) }
+    val ability = rememberTextFieldState()
+    val image = rememberTextFieldState()
 
+    val pokemonList by addPokemonVM.pokemons.collectAsStateWithLifecycle()
 
-    Column(Modifier.fillMaxSize().padding(innerPadding),
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+            .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(15.dp)) {
-        Text("Agregar Pokemon", style= Typography.titleLarge)
-        Spacer(Modifier.size(20.dp))
-        TextField(
-            state = number,
-            label={
-                Text("Numero de Pokemon")
-            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-        TextField(
-            state = name,
-            label={
-                Text("Nombre del Pokemon")
-            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-        )
-        ExposedDropdownMenuBox(expanded = openType, onExpandedChange = {openType = it}) {
-            OutlinedTextField(
-                readOnly = true,
-                label={ Text("Selecciona un tipo") },
-                state= type,
-                trailingIcon= { ExposedDropdownMenuDefaults.TrailingIcon(expanded = openType) },
-                modifier = Modifier.menuAnchor()
+        verticalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
+        item {
+            Text("Agregar Pokemon", style = Typography.titleLarge)
+            Spacer(Modifier.size(20.dp))
+        }
+
+        item {
+            TextField(
+                state = number,
+                label = { Text("Numero de Pokemon") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
-            ExposedDropdownMenu(expanded = openType, onDismissRequest = { openType = false }) {
-                pokemonTypes.forEach { selectionOption ->
-                    DropdownMenuItem(
-                        onClick = {
-                            textFieldState.setTextAndPlaceCursorAtEnd(selectionOption)
-                            openType = false
-                        },
-                        text = { Text(selectionOption) }
-                    )
+        }
+
+        item {
+            TextField(
+                state = name,
+                label = { Text("Nombre del Pokemon") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            )
+        }
+
+        item {
+            ExposedDropdownMenuBox(
+                expanded = openType,
+                onExpandedChange = { openType = it }
+            ) {
+                OutlinedTextField(
+                    readOnly = true,
+                    label = { Text("Selecciona un tipo") },
+                    state = type,
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = openType) },
+                    modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
+                )
+                ExposedDropdownMenu(
+                    expanded = openType,
+                    onDismissRequest = { openType = false }
+                ) {
+                    pokemonTypes.forEach { selectionOption ->
+                        DropdownMenuItem(
+                            onClick = {
+                                type.setTextAndPlaceCursorAtEnd(selectionOption)
+                                openType = false
+                            },
+                            text = { Text(selectionOption) }
+                        )
+                    }
                 }
             }
         }
-        TextField(
-            state = description,
-            label={
-                Text("Descripción del Pokemon")
-            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-        )
-        TextField(
-            state = height,
-            label={
-                Text("Altura del Pokemon")
-            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-        TextField(
-            state = weight,
-            label={
-                Text("Peso del Pokemon")
-            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-        TextField(
-            state = ability,
-            label={
-                Text("Habilidad del Pokemon")
-            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-        )
-        TextField(
-            state = image,
-            label={
-                Text("Imagen del Pokemon")
-            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
 
+        item {
+            TextField(
+                state = description,
+                label = { Text("Descripción del Pokemon") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            )
+        }
+
+        item {
+            TextField(
+                state = height,
+                label = { Text("Altura del Pokemon") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+            )
+        }
+
+        item {
+            TextField(
+                state = weight,
+                label = { Text("Peso del Pokemon") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+            )
+        }
+
+        item {
+            TextField(
+                state = ability,
+                label = { Text("Habilidad del Pokemon") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            )
+        }
+
+        /**
+         * item {
+         *             TextField(
+         *                 state = image,
+         *                 label = { Text("Imagen del Pokemon") },
+         *                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+         *             )
+         *         }
+         */
+
+        item {
+            Button(onClick = {
+                val parsedNumber = number.text.toString().trim().toIntOrNull() ?: return@Button
+                val parsedHeight = height.text.toString().trim().toFloatOrNull() ?: 0f
+                val parsedWeight = weight.text.toString().trim().toFloatOrNull() ?: 0f
+                //val parsedImage = image.text.toString().trim().toIntOrNull() ?: 0
+                val parsedImage = R.drawable.wtp
+
+                addPokemonVM.savePokemon(
+                    parsedNumber,
+                    name.text.toString().trim(),
+                    type.text.toString().trim(),
+                    description.text.toString().trim(),
+                    parsedHeight,
+                    parsedWeight,
+                    fav,
+                    ability.text.toString().trim(),
+                    parsedImage
+                )
+            }) {
+                Text("Add Pokemon")
+            }
+        }
+
+        items(pokemonList) { p ->
+            PokemonRow(p, onNavigateToDetail)
+        }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewAddPokemon(){
-    AddPokemonScreen(PaddingValues(20.dp))
 }

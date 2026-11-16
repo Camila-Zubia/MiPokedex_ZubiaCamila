@@ -9,8 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import zubia.camila.mypokedex.R
+import zubia.camila.mypokedex.navigation.AddPokemon
 import zubia.camila.mypokedex.navigation.Login
 import zubia.camila.mypokedex.navigation.Perfil
+import zubia.camila.mypokedex.screens.AddPokemonScreen
 import zubia.camila.mypokedex.ui.theme.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,6 +33,9 @@ fun TopNavBar(navController: NavController, onLogout: () -> Unit){
     }, actions = {
         IconButton(onClick = {navController.navigate(Perfil)}) {
             Icon(painterResource(R.drawable.ic_perfil), contentDescription = "perfil")
+        }
+        IconButton(onClick = {navController.navigate(AddPokemon)}) {
+            Icon(painterResource(R.drawable.ic_addpokemon), contentDescription = "agregar pokemon")
         }
     })
 }
