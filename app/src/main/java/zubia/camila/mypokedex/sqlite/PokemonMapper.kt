@@ -15,7 +15,7 @@ class PokemonMapper(){
         val height = cursor.getFloat(cursor.getColumnIndexOrThrow(Contract.Pokemons.COLUMN_NAME_HEIGHT))
         val fav = cursor.getColumnIndexOrThrow(Contract.Pokemons.COLUMN_NAME_FAV)
         val ability = cursor.getString(cursor.getColumnIndexOrThrow(Contract.Pokemons.COLUMN_NAME_ABILITY))
-        val image = cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Pokemons.COLUMN_NAME_IMAGE))
+        val image = cursor.getBlob(cursor.getColumnIndexOrThrow(Contract.Pokemons.COLUMN_NAME_IMAGE))
 
         return Pokemon(
             name = name,

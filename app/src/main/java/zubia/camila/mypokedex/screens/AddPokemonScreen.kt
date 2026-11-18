@@ -1,17 +1,19 @@
 package zubia.camila.mypokedex.screens
 
+import android.net.Uri
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material3.Button
@@ -31,10 +33,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import zubia.camila.mypokedex.R
+import zubia.camila.mypokedex.components.ImagePhotoPicker
 import zubia.camila.mypokedex.components.PokemonRow
 import zubia.camila.mypokedex.model.domain.pokemonTypes
 import zubia.camila.mypokedex.ui.theme.Typography
@@ -56,7 +58,7 @@ fun AddPokemonScreen(
     val weight = rememberTextFieldState()
     var fav by remember { mutableStateOf(false) }
     val ability = rememberTextFieldState()
-    val image = rememberTextFieldState()
+    var image: Uri? by remember { mutableStateOf<Uri?>(null) }
 
     val pokemonList by addPokemonVM.pokemons.collectAsStateWithLifecycle()
 
@@ -150,23 +152,16 @@ fun AddPokemonScreen(
             )
         }
 
-        /**
-         * item {
-         *             TextField(
-         *                 state = image,
-         *                 label = { Text("Imagen del Pokemon") },
-         *                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-         *             )
-         *         }
-         */
+        item {
+            //ImagePhotoPicker()
+        }
 
         item {
             Button(onClick = {
                 val parsedNumber = number.text.toString().trim().toIntOrNull() ?: return@Button
                 val parsedHeight = height.text.toString().trim().toFloatOrNull() ?: 0f
                 val parsedWeight = weight.text.toString().trim().toFloatOrNull() ?: 0f
-                //val parsedImage = image.text.toString().trim().toIntOrNull() ?: 0
-                val parsedImage = R.drawable.wtp
+                val parsedImage = image.toString().trim().toIntOrNull() ?: 0
 
                 addPokemonVM.savePokemon(
                     parsedNumber,

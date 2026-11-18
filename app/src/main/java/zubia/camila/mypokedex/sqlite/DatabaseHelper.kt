@@ -3,6 +3,7 @@ package zubia.camila.mypokedex.sqlite
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.core.database.sqlite.transaction
 
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     override fun onCreate(db: SQLiteDatabase?) {
@@ -16,7 +17,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
                 "${Contract.Pokemons.COLUMN_NAME_ABILITY} TEXT, " +
                 "${Contract.Pokemons.COLUMN_NAME_HEIGHT} FLOAT, " +
                 "${Contract.Pokemons.COLUMN_NAME_WEIGHT} FLOAT, " +
-                "${Contract.Pokemons.COLUMN_NAME_IMAGE} INTEGER)"
+                "${Contract.Pokemons.COLUMN_NAME_IMAGE} BLOB)"
         db?.execSQL(createPokemons)
     }
 
@@ -25,9 +26,25 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         oldVersion: Int,
         newVersion: Int
     ) {
-        val dropTablePokemons = "DROP TABLE IF EXISTS ${Contract.Pokemons.TABLE_NAME}"
-        db?.execSQL(dropTablePokemons)
-        onCreate(db)
+        if (oldVersion < 2) {
+            db?.transaction {
+                execSQL("ALTER TABLE ${Contract.Pokemons.TABLE_NAME} RENAME TO temp_pokemons")
+                execSQL("""
+                CREATE TABLE ${Contract.Pokemons.TABLE_NAME} (
+                    _id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ${Contract.Pokemons.COLUMN_NAME_IMAGE} BLOB
+                )
+            """)
+                execSQL("""
+                INSERT INTO ${Contract.Pokemons.TABLE_NAME} (_id, ${Contract.Pokemons.COLUMN_NAME_IMAGE})
+                SELECT _id, ${Contract.Pokemons.COLUMN_NAME_IMAGE} FROM temp_pokemons
+            """)
+                execSQL("DROP TABLE temp_pokemons")
+            }
+        } else {
+            db?.execSQL("DROP TABLE IF EXISTS ${Contract.Pokemons.TABLE_NAME}")
+            onCreate(db)
+        }
     }
 
     companion object{

@@ -11,4 +11,4 @@ data class Pokemon(val name : String,
                    val weight: Float,
                    val fav: Boolean,
                    val ability: String,
-                   val image: Int)
+                   val image: ByteArray? = null)
